@@ -59,6 +59,12 @@ void draw() {
   }
 }
 
+void mouseDragged() {
+   if (grid.isMouseOnGrid()){
+     grid.changeCell(mouseX, mouseY, grid.selected); 
+   }
+}
+  
 void mousePressed() {
   if (start.isMouseOverButton()) {
     phase = PhaseType.SETUP;
@@ -87,9 +93,9 @@ void mousePressed() {
     cheese.isSelected = true; 
     grid.selected = CellType.CHEESE;
   }
-  //if(grid.isMouseOnGrid()){
-  //  //grid.mousePressed();
-  //}
+  if (grid.isMouseOnGrid()){
+     grid.changeCell(mouseX, mouseY, grid.selected); 
+  }
 }
 
 public static class PhaseType {

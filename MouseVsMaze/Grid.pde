@@ -62,12 +62,6 @@ class Grid {
         rect(i * GridSize.CELL_SIZE, j * GridSize.CELL_SIZE, GridSize.CELL_SIZE, GridSize.CELL_SIZE);
       }
     }
-    
-   //void mousePressed(){
-   //  if (grid.isMouseOnGrid()){
-   //    changeCell(mouseX, mouseY, selected); 
-   //  }
-   //}
   
   boolean isWall(int xPos, int yPos) {
     int i = int(xPos / GridSize.CELL_SIZE);
