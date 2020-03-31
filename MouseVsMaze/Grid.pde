@@ -54,7 +54,7 @@ class Grid {
     
    //void mousePressed(){
    //  if (grid.isMouseOnGrid()){
-   //    changeCell(mouseX, mouseY, selected);
+   //    changeCell(mouseX, mouseY, selected); 
    //  }
    //}
   

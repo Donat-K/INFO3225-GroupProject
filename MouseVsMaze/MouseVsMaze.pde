@@ -11,9 +11,7 @@ void settings(){
 
 void setup() {
   phase = PhaseType.START;  // Game starts on the opening screen
-  //setupPhase = false;  // It then moves to the setup phase
-  //gamingPhase = false;  // It then switches to the gaming phase and back until you decide to stop
-  //endingPhase = false;  // The game then ends and the mouse either wins or loses
+ 
   
   titleScreen = new Menu(0, 0, width, height);//Creating the Start and Ending Screens
   winningScreen = new Menu(0, 0, width, height);
