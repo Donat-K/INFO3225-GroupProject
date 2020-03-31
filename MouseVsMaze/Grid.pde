@@ -32,9 +32,13 @@ class Grid {
   }
   
   void draw() {  
-      stroke(Colour.WHITE);
-      for (int i = 0; i < (GridSize.GRID_WIDTH); i++) {  
+      //Fills in the cells with the appropriate color.
+      for (int i = 0; i < (GridSize.GRID_WIDTH); i++) { 
         for (int j = 0; j < (GridSize.GRID_HEIGHT); j++) { 
+          stroke(Colour.WHITE);
+          if (cells[i][j] == CellType.HOVER) { 
+           stroke(Colour.RED);  
+          }
           if (cells[i][j] == CellType.EMPTY) {  
             fill(Colour.BLACK);   
           }       
@@ -44,12 +48,19 @@ class Grid {
           else if (cells[i][j] == CellType.CHEESE) { 
            fill(Colour.ORANGE);  
           }
-          if (cells[i][j] == CellType.HOVER) { 
-           stroke(Colour.RED);  
-          }
-           rect(i * GridSize.CELL_SIZE, j * GridSize.CELL_SIZE, GridSize.CELL_SIZE, GridSize.CELL_SIZE);
+          
+          rect(i * GridSize.CELL_SIZE, j * GridSize.CELL_SIZE, GridSize.CELL_SIZE, GridSize.CELL_SIZE);
         }  
-      }  
+      }
+      
+      //Outlines hovered cell in red
+      if(isMouseOnGrid()){
+        stroke(Colour.RED);
+        
+        int i = int(mouseX / GridSize.CELL_SIZE);
+        int j = int(mouseY / GridSize.CELL_SIZE);
+        rect(i * GridSize.CELL_SIZE, j * GridSize.CELL_SIZE, GridSize.CELL_SIZE, GridSize.CELL_SIZE);
+      }
     }
     
    //void mousePressed(){
@@ -78,14 +89,7 @@ class Grid {
      }
     return false;
   }
-  
-  void hoveredCell(){
-    if(isMouseOnGrid()){
-        changeCell(mouseX, mouseY, CellType.HOVER);
-      }
-  }
-     
-  
+    
    void changeCell(int xPos, int yPos, int cellType) {
      int i = int(xPos / GridSize.CELL_SIZE);
      int j = int(yPos / GridSize.CELL_SIZE);

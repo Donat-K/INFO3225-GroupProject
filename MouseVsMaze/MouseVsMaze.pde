@@ -39,9 +39,8 @@ void draw() {
     start.draw();  
   }      
   else if (phase == PhaseType.SETUP) {  // Display the Maze while the game is on
-    
     grid.draw();
-    grid.hoveredCell();
+    
     
     scoreMenu.scoreMenu();
     end.draw();
