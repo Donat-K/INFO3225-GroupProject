@@ -39,6 +39,10 @@ void draw() {
     start.draw();  
   }      
   else if (phase == PhaseType.SETUP) {  // Display the Maze while the game is on
+    
+    fill(Colour.WHITE);
+    rect(0, 0, width + 400, height); // Square to Hide start Menu
+    
     grid.draw();
     
     
