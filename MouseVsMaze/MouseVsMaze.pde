@@ -1,7 +1,10 @@
+import processing.sound.*;
+
 int phase;
 Menu titleScreen, winningScreen, losingScreen, scoreMenu;
 Grid grid;
 Button empty, wall, cheese, start, reset, end, ready;
+SoundFile opening, setup, playing, loss, victory;
 
 void settings(){
   width = GridSize.CELL_SIZE * GridSize.GRID_WIDTH;
@@ -12,7 +15,12 @@ void settings(){
 void setup() {
   phase = PhaseType.START;  // Game starts on the opening screen
  
-  
+  opening = new SoundFile(this, "Opening.mp3");
+  setup = new SoundFile(this, "Setup.mp3");
+  playing = new SoundFile(this, "Playing.mp3");
+  loss = new SoundFile(this, "Loss.mp3");
+  victory = new SoundFile(this, "Victory.mp3");
+
   titleScreen = new Menu(0, 0, width, height);//Creating the Start and Ending Screens
   winningScreen = new Menu(0, 0, width, height);
   losingScreen = new Menu(0, 0, width, height);
@@ -29,6 +37,7 @@ void setup() {
   
   grid = new Grid();
   
+  opening.play();
   
 }
 
@@ -36,10 +45,15 @@ void draw() {
   
   if (phase == PhaseType.START) {  // Display Title Screen at the start
     titleScreen.titleScreen();
-    start.draw();  
+    start.draw();
   }      
   else if (phase == PhaseType.SETUP) {  // Display the Maze while the game is on
-    
+
+    opening.stop();
+    if (!setup.isPlaying()) {
+      setup.play();
+    }
+
     fill(Colour.WHITE);
     rect(0, 0, width + 400, height); // Square to Hide start Menu
     
@@ -55,10 +69,17 @@ void draw() {
     ready.draw();
   }    
   else if (phase == PhaseType.END) {  // Display the Ending Screen, either Victory or Defeat
+    setup.stop();
     if (scoreMenu.mouseScore > scoreMenu.mazeScore) {
       winningScreen.winningScreen();
+      if (!victory.isPlaying()) {
+        victory.play();
+      }
     } else if (scoreMenu.mouseScore <= scoreMenu.mazeScore) {
       losingScreen.losingScreen();
+      if (!loss.isPlaying()) {
+        loss.play();
+      }
     }
   }
 }
