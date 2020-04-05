@@ -7,6 +7,9 @@ class Menu {
   
   int mouseScore = 0;
   int mazeScore = 0;
+  int roundNum = 1;
+  int cheeseNum = 0;
+  int damageNum = 0;  
   
   PImage lose, start, victory;
   
@@ -82,7 +85,70 @@ class Menu {
     popMatrix();
   }
   
+  void roundMenu() {
+    pushMatrix();
+    
+    fill(200, 200, 200);
+    rect(xPos, yPos, xLength, yLength);
+    textAlign(CENTER);
+    textSize(24);
+    fill(0, 0, 0);
+    translate(xPos + xLength/2, yPos + yLength/2);
+    text("Round: " + roundNum, 0, 10);
+    
+    popMatrix();
+  }
   
+  void cheeseMenu() {
+    pushMatrix();
+    
+    fill(Colour.ORANGE);
+    rect(xPos, yPos, xLength, yLength);
+    textAlign(CENTER);
+    textSize(24);
+    fill(255, 255, 255);
+    translate(xPos + xLength/2, yPos + yLength/2);
+    text("Cheese: " + cheeseNum, 0, 10);
+    
+    popMatrix();
+  }
+  
+  void damageMenu() {
+    pushMatrix();
+    
+    fill(Colour.BLUE);
+    rect(xPos, yPos, xLength, yLength);
+    textAlign(CENTER);
+    textSize(24);
+    fill(255, 255, 255);
+    translate(xPos + xLength/2, yPos + yLength/2);
+    text("Hits: " + damageNum, 0, 10);
+    
+    popMatrix();
+  }  
+  
+  void guideMenu() {
+    pushMatrix();
+    
+    fill(200, 200, 200);
+    rect(xPos, yPos, xLength, yLength);
+    textAlign(CENTER);
+    textSize(20);
+    fill(0, 0, 0);
+    translate(xPos + xLength/2, yPos);
+    text("HELP MENU", 0, 22);
+    translate(-xLength/2, 0);
+    textAlign(LEFT);
+    text("END: Clicking ends the game.", 5, 50);
+    text("EMPTY: Clicking empties the square.", 5, 80);
+    text("WALL: Clicking creates a wall.", 5, 110);
+    text("CHEESE: Clicking creates cheese blocks.", 5, 140);
+    text("RESET: Completely clears the grid.", 5, 170);
+    text("READY: Ends the building phase.", 5, 200);
+    
+    popMatrix();
+  }   
+    
   
   
   

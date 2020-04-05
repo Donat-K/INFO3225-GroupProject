@@ -1,7 +1,7 @@
 import processing.sound.*;
 
 int phase;
-Menu titleScreen, winningScreen, losingScreen, scoreMenu;
+Menu titleScreen, winningScreen, losingScreen, scoreMenu, roundMenu, cheeseMenu, damageMenu, guideMenu;
 Grid grid;
 Player player;
 Button empty, wall, cheese, start, reset, end, ready;
@@ -35,6 +35,11 @@ void setup() {
   reset = new Button(width - 400, ButtonSize.HEIGHT * 5, ButtonType.RESET);
   ready = new Button(width - 400, ButtonSize.HEIGHT * 6, ButtonType.READY);
   scoreMenu = new Menu(width - 400, 0, 100, 50);
+  roundMenu = new Menu(width - 300, 0, 150, 50);
+  cheeseMenu = new Menu(width - 300, 200, 150, 50);
+  damageMenu = new Menu(width - 300, 150, 150, 50);
+  guideMenu = new Menu(width - 400, 350, 400, 220);
+
   
   grid = new Grid();
   player = new Player();
@@ -62,6 +67,10 @@ void draw() {
     
     
     scoreMenu.scoreMenu();
+    roundMenu.roundMenu();
+    cheeseMenu.cheeseMenu();
+    damageMenu.damageMenu();
+    guideMenu.guideMenu();
     end.draw();
     empty.draw();
     wall.draw();
