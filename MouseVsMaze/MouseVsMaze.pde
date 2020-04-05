@@ -3,6 +3,7 @@ import processing.sound.*;
 int phase;
 Menu titleScreen, winningScreen, losingScreen, scoreMenu;
 Grid grid;
+Player player;
 Button empty, wall, cheese, start, reset, end, ready;
 SoundFile opening, setup, playing, loss, victory;
 
@@ -36,6 +37,7 @@ void setup() {
   scoreMenu = new Menu(width - 400, 0, 100, 50);
   
   grid = new Grid();
+  player = new Player();
   
   opening.play();
   
@@ -48,7 +50,6 @@ void draw() {
     start.draw();
   }      
   else if (phase == PhaseType.SETUP) {  // Display the Maze while the game is on
-
     opening.stop();
     if (!setup.isPlaying()) {
       setup.play();
@@ -68,6 +69,11 @@ void draw() {
     reset.draw();
     ready.draw();
   }    
+  
+  else if (phase == PhaseType.PLAY) {
+    player.draw();
+  }
+  
   else if (phase == PhaseType.END) {  // Display the Ending Screen, either Victory or Defeat
     setup.stop();
     if (scoreMenu.mouseScore > scoreMenu.mazeScore) {
@@ -118,8 +124,28 @@ void mousePressed() {
     cheese.isSelected = true; 
     grid.selected = CellType.CHEESE;
   }
+  else if (ready.isMouseOverButton()){
+    phase = PhaseType.PLAY;
+  }
   if (grid.isMouseOnGrid()){
      grid.changeCell(mouseX, mouseY, grid.selected); 
+  }
+}
+
+void keyPressed() {
+  if (key == CODED) {
+    if (keyCode == RIGHT) {
+      player.direction = Direction.RIGHT;
+    }
+    if (keyCode == DOWN) {
+      player.direction = Direction.DOWN;
+    }
+    if (keyCode == LEFT) {
+      player.direction = Direction.LEFT;
+    }
+    if (keyCode == UP) {
+      player.direction = Direction.UP;
+    }
   }
 }
 

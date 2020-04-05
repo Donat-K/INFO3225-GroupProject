@@ -100,22 +100,7 @@ public static class CellType {
 }
 
 public static class GridSize {
-  public static final int CELL_SIZE = 40;
-  public static final int GRID_WIDTH = 25;
-  public static final int GRID_HEIGHT = 25;
-}
-
-public static class Random {
-  static int generateInt(int min, int max) {//min and max are both inclusive.
-    if (max < min) {
-      throw new IllegalArgumentException("Max must be greater than min.");
-    }
-    else {
-      return (int)(Math.random() * (max + 1 - min)) + min;
-    }
-  }
-  
-  static int generateStartPosition(int dimension){
-      return generateInt((3 * GridSize.CELL_SIZE), (dimension * (GridSize.CELL_SIZE - 3))); 
-  }
+  public static final int CELL_SIZE = 28;
+  public static final int GRID_WIDTH = 35;
+  public static final int GRID_HEIGHT = 35;
 }
