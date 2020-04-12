@@ -1,6 +1,7 @@
 class Grid {
   int[][] cells = new int[GridSize.GRID_WIDTH][GridSize.GRID_HEIGHT];
   int selected;
+  int cheeseNum = 0;
   
   Grid() {
     //selected = CellType.EMPTY;
@@ -46,7 +47,7 @@ class Grid {
             fill(Colour.BLUE);
           }  
           else if (cells[i][j] == CellType.CHEESE) { 
-           fill(Colour.ORANGE);  
+           fill(Colour.ORANGE);
           }
           
           rect(i * GridSize.CELL_SIZE, j * GridSize.CELL_SIZE, GridSize.CELL_SIZE, GridSize.CELL_SIZE);
@@ -65,6 +66,16 @@ class Grid {
 
       }
     }
+  
+  void countCheese() {
+    for (int i = 0; i < (GridSize.GRID_WIDTH); i++) { 
+      for (int j = 0; j < (GridSize.GRID_HEIGHT); j++) { 
+        if (cells[i][j] == CellType.CHEESE) { 
+           cheeseNum++;
+        }
+      }
+    }
+  }
   
   int cellType(int xPos, int yPos){
     int i = (int)(xPos / GridSize.CELL_SIZE);
@@ -91,7 +102,7 @@ class Grid {
      int i = int(xPos / GridSize.CELL_SIZE);
      int j = int(yPos / GridSize.CELL_SIZE);
  
-     cells[i][j] = cellType;  
+     cells[i][j] = cellType;
    }
    
    void placeBlock(){

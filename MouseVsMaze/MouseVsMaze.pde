@@ -56,7 +56,21 @@ void draw() {
   } 
   
   if (phase == PhaseType.PLAY) {
+     
     player.draw();
+    
+    if (player.health <= 0){
+      scoreMenu.mouseScore++;
+      grid.reset();
+      player.reset();
+    }
+
+    if (player.points == grid.cheeseNum){
+      scoreMenu.mouseScore++;
+      grid.reset();
+      player.reset();
+    }
+    
   }
   
   if (phase == PhaseType.SETUP || phase == PhaseType.PLAY) {  // Display the Maze while the game is on
@@ -72,10 +86,6 @@ void draw() {
     player.render(); //shows the player's initial position (but does not move)
     
     
-    if (player.health <= 0){
-      grid.reset();
-      player.reset();
-    }
     
     scoreMenu.scoreMenu();
     roundMenu.roundMenu();
@@ -88,7 +98,7 @@ void draw() {
     cheese.draw();
     reset.draw();
     ready.draw();
-  }    
+  }
   
   else if (phase == PhaseType.END) {  // Display the Ending Screen, either Victory or Defeat
     setup.stop();
@@ -107,7 +117,9 @@ void draw() {
 }
 
 void mouseDragged() {
-   grid.placeBlock();
+  if (phase == PhaseType.SETUP) {   
+    grid.placeBlock();
+  }
 }
   
 void mousePressed() {
@@ -140,8 +152,11 @@ void mousePressed() {
   }
   else if (ready.isMouseOverButton()){
     phase = PhaseType.PLAY;
+    grid.countCheese();
   }
-  grid.placeBlock();
+  if (phase == PhaseType.SETUP) {   
+    grid.placeBlock();
+  }
 }
 
 void keyPressed() {

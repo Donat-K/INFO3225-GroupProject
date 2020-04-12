@@ -106,7 +106,7 @@ class Menu {
     textSize(24);
     fill(255, 255, 255);
     translate(xPos + xLength/2, yPos + yLength/2);
-    text("Cheese: " + player.points, 0, 10);
+    text("Cheese: " + player.points + "/" + grid.cheeseNum, 0, 10);
     
     popMatrix();
   }

@@ -52,9 +52,12 @@ class Player {
   }
   
   void reset(){
+    phase = PhaseType.SETUP;    
     direction = Direction.STOP;
     health = 10;
     points = 0;
+    grid.cheeseNum = 0;
+    roundMenu.roundNum++;
     colour = Colour.GREY;
     xPos = Random.generateStartPosition(GridSize.GRID_WIDTH);
     yPos = Random.generateStartPosition(GridSize.GRID_HEIGHT);
