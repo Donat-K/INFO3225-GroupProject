@@ -27,20 +27,19 @@ void setup() {
   losingScreen = new Menu(0, 0, width, height);
   
   start = new Button(600, 750, 200, 100, ButtonType.START);
-  end = new Button(width - 400, ButtonSize.HEIGHT, ButtonType.END);
-  
+  end = new Button(width - 400, ButtonSize.HEIGHT, ButtonType.END);  
   empty = new Button(width - 400, ButtonSize.HEIGHT * 2, ButtonType.EMPTY);
   wall = new Button(width - 400, ButtonSize.HEIGHT * 3, ButtonType.WALL);
   cheese = new Button(width - 400, ButtonSize.HEIGHT * 4, ButtonType.CHEESE);
   reset = new Button(width - 400, ButtonSize.HEIGHT * 5, ButtonType.RESET);
   ready = new Button(width - 400, ButtonSize.HEIGHT * 6, ButtonType.READY);
+
   scoreMenu = new Menu(width - 400, 0, 100, 50);
   roundMenu = new Menu(width - 300, 0, 150, 50);
   pointsMenu = new Menu(width - 300, 200, 150, 50);
   healthMenu = new Menu(width - 300, 150, 150, 50);
   guideMenu = new Menu(width - 400, 350, 400, 250);
-
-  
+ 
   grid = new Grid();
   player = new Player();
   
@@ -48,29 +47,26 @@ void setup() {
   
 }
 
-void draw() {
-  
+void draw() {  
   if (phase == PhaseType.START) {  // Display Title Screen at the start
     titleScreen.titleScreen();
     start.draw();
   } 
   
-  if (phase == PhaseType.PLAY) {
-     
-    player.draw();
-    
+  if (phase == PhaseType.PLAY) { 
+    player.draw();   
     if (player.health <= 0){
-      scoreMenu.mouseScore++;
+      scoreMenu.mazeScore++;
       grid.reset();
       player.reset();
+    }  
+    if (grid.cheeseNum > 1){
+      if (player.points == grid.cheeseNum){
+        scoreMenu.mouseScore++;
+        grid.reset();
+        player.reset();
+      }
     }
-
-    if (player.points == grid.cheeseNum){
-      scoreMenu.mouseScore++;
-      grid.reset();
-      player.reset();
-    }
-    
   }
   
   if (phase == PhaseType.SETUP || phase == PhaseType.PLAY) {  // Display the Maze while the game is on
@@ -80,18 +76,16 @@ void draw() {
     }
 
     fill(Colour.BLACK);
-    rect(0, 0, width + 400, height); // Square to Hide start Menu
-    
+    rect(0, 0, width + 400, height); // Square to Hide start Menu  
     grid.draw();
     player.render(); //shows the player's initial position (but does not move)
-    
-    
     
     scoreMenu.scoreMenu();
     roundMenu.roundMenu();
     pointsMenu.cheeseMenu();
     healthMenu.healthMenu();
     guideMenu.guideMenu();
+    
     end.draw();
     empty.draw();
     wall.draw();
@@ -129,16 +123,16 @@ void mousePressed() {
   else if (end.isMouseOverButton()) {
     phase = PhaseType.END;   
   }
-   else if (reset.isMouseOverButton()) {
+  else if (reset.isMouseOverButton()) {
     grid.reset();   
   }
-   else if (empty.isMouseOverButton()) {
+  else if (empty.isMouseOverButton()) {
     empty.isSelected = true;
     wall.isSelected = false;
     cheese.isSelected = false;
     grid.selected = CellType.EMPTY;
   }
-   else if (wall.isMouseOverButton()) {
+  else if (wall.isMouseOverButton()) {
     empty.isSelected = false;
     wall.isSelected = true;
     cheese.isSelected = false;
@@ -173,8 +167,7 @@ void keyPressed() {
     if (keyCode == UP) {
       player.direction = Direction.UP;
     }
-  }
-  
+  }  
   if (key == 's' || key == 'S'){
     if (player.speed == 1) {
       player.speed = 3;

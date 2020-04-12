@@ -49,23 +49,18 @@ class Grid {
           else if (cells[i][j] == CellType.CHEESE) { 
            fill(Colour.ORANGE);
           }
-          
           rect(i * GridSize.CELL_SIZE, j * GridSize.CELL_SIZE, GridSize.CELL_SIZE, GridSize.CELL_SIZE);
         }  
-      }
-      
+      }      
       //Outlines hovered cell in red
       if(isMouseOnGrid()){
         noFill();
-        stroke(Colour.RED);
-        
+        stroke(Colour.RED);        
         int i = (int)(mouseX / GridSize.CELL_SIZE);
         int j = (int)(mouseY / GridSize.CELL_SIZE);
         rect(i * GridSize.CELL_SIZE, j * GridSize.CELL_SIZE, GridSize.CELL_SIZE, GridSize.CELL_SIZE);
-        //System.out.println("x: " + mouseX + ", y: " + mouseY + "\ni: " + i + ", j: " + j);
-
       }
-    }
+  }
   
   void countCheese() {
     for (int i = 0; i < (GridSize.GRID_WIDTH); i++) { 
@@ -101,18 +96,17 @@ class Grid {
    void changeCell(int xPos, int yPos, int cellType) {
      int i = int(xPos / GridSize.CELL_SIZE);
      int j = int(yPos / GridSize.CELL_SIZE);
- 
      cells[i][j] = cellType;
    }
    
    void placeBlock(){
      if (grid.isMouseOnGrid()){
         //FIXME: Prevents placing of block on top of player
-        if (((mouseX > (player.xPos + GridSize.CELL_SIZE * 2)) || (mouseX < (player.xPos - GridSize.CELL_SIZE * 2))) 
-          && ((mouseY > (player.yPos + GridSize.CELL_SIZE * 2)) || (mouseY < (player.yPos - GridSize.CELL_SIZE * 2)))) {
+        if ( ((mouseX > (player.xPos + GridSize.CELL_SIZE * 1.5)) || (mouseX < (player.xPos - GridSize.CELL_SIZE * 1.5))) 
+        && ((mouseY > (player.yPos + GridSize.CELL_SIZE * 1.5)) || (mouseY < (player.yPos - GridSize.CELL_SIZE * 1.5))) ){
             grid.changeCell(mouseX, mouseY, grid.selected); 
-        }
-     }
+          } 
+       }
    }
 }
 

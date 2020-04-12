@@ -1,16 +1,12 @@
 class Menu {
-  
   float xPos;
   float yPos;
   float xLength;
-  float yLength;
-  
+  float yLength;  
   int mouseScore = 0;
   int mazeScore = 0;
   int roundNum = 1;
-  
   PImage lose, start, victory;
-  
   Menu(float xPos_, float yPos_, float xLength_, float yLength_) {  // Menu Constructor
     
     xPos = xPos_;

@@ -11,8 +11,6 @@ public class Button {
   String label;
   boolean isSelected;
 
- 
-  
   Button(int xPos, int yPos, int type) {  // Button Constructor
     this.xPos = xPos;
     this.yPos = yPos;
@@ -21,7 +19,7 @@ public class Button {
     isSelected  = false;
     this.type = type;
     
-     if (type == ButtonType.START){
+    if (type == ButtonType.START){
       colour = Colour.GREEN;
       highlight = Colour.DARK_GREEN;
       label = "START";
@@ -66,7 +64,7 @@ public class Button {
 
   
   void draw() {
-    pushMatrix();
+   pushMatrix();
 
    if (isMouseOverButton()){
      fill(highlight);
@@ -78,8 +76,7 @@ public class Button {
    if(isSelected){
      strokeWeight(5);
      stroke(Colour.RED);
-   }
-    else {
+   } else {
       strokeWeight(1);
       stroke(Colour.WHITE);  
     }

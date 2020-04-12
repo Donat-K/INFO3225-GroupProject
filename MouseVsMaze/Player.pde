@@ -47,7 +47,6 @@ class Player {
       direction = Direction.STOP;
       return;
     }
-
     checkBlock(nextX, nextY);
   }
   
