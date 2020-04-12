@@ -1,16 +1,21 @@
 class Player {
-  int speed = 1;
+  int speed;
   int xPos;
   int yPos;
+  int health;
+  int points;
   int direction;
   int size = GridSize.CELL_SIZE;
+  color colour;
   
   Player() {
-    direction = Random.generateInt(0,3);
-    xPos = 50;
-    yPos = 50;
-    //xPos = Random.generateStartPosition(GridSize.GRID_WIDTH);
-    //yPos = Random.generateStartPosition(GridSize.GRID_HEIGHT);
+    direction = Direction.STOP;
+    speed = 1;
+    health = 10;
+    points = 0;
+    colour = Colour.GREY;
+    xPos = Random.generateStartPosition(GridSize.GRID_WIDTH);
+    yPos = Random.generateStartPosition(GridSize.GRID_HEIGHT);
   }
  
   void draw() {
@@ -19,47 +24,69 @@ class Player {
   }
   
   void move() {
-    int lastX = xPos;
-    int lastY = yPos;
+    int nextX = xPos;
+    int nextY = yPos;
+    
+    if (direction == Direction.STOP){
+      return;
+    }
     if (direction == Direction.RIGHT) {
-      xPos += speed;
+      nextX = xPos += speed;
     }
     if (direction == Direction.DOWN) {
-      yPos += speed;
+      nextY = yPos += speed;
     }
     if (direction == Direction.LEFT) {
-      xPos -= speed;
+      nextX = xPos -= speed;
     }
     if (direction == Direction.UP) {
-      yPos -= speed;
+      nextY = yPos -= speed;
     }
-    
-    if ((xPos >= width) || (xPos <= 0)) {
-      xPos = Math.abs(xPos - width);
+    //FIXME: Prevents player from exiting grid
+    if (nextX <= 1 || nextX >= width - 1 || nextY <= 1 || nextY >= height - 1){
+      direction = Direction.STOP;
+      return;
     }
-    if ((yPos >= height) || (yPos <= 0)) {
-      yPos = Math.abs(yPos - height);
-    }
-    
-    if (grid.isWall(xPos, yPos)) {
-      xPos = lastX;
-      yPos = lastY;
-    }
+
+    checkBlock(nextX, nextY);
   }
   
   void reset(){
-    //player = new Player();
+    direction = Direction.STOP;
+    health = 10;
+    points = 0;
+    colour = Colour.GREY;
+    xPos = Random.generateStartPosition(GridSize.GRID_WIDTH);
+    yPos = Random.generateStartPosition(GridSize.GRID_HEIGHT);
   }
   
   void render() {
     pushMatrix();
-    translate(xPos, yPos);
     stroke(0);
-    fill(Colour.GREY);
+    fill(colour);
     ellipseMode(CENTER);
     ellipse(xPos, yPos, size, size);
     popMatrix();
   }
+  
+  void checkBlock(int nextX, int nextY){
+     if (grid.cellType(nextX, nextY) == CellType.WALL) {
+          colour = Colour.RED;
+          health--;
+          direction = Direction.STOP;
+        }
+     else {
+        colour  = Colour.GREY;
+        xPos = nextX;
+        yPos = nextY;
+     }
+     if (grid.cellType(nextX, nextY) == CellType.CHEESE) {
+       grid.changeCell(nextX, nextY, CellType.EMPTY);
+       points++;
+       xPos = nextX;
+       yPos = nextY;
+     }
+  } 
 }
 
 public static class Direction {
@@ -67,4 +94,5 @@ public static class Direction {
   public static final int DOWN = 1;
   public static final int LEFT = 2;
   public static final int UP = 3;
+  public static final int STOP = 4;
 }

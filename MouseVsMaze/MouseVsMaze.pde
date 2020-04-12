@@ -1,7 +1,7 @@
 import processing.sound.*;
 
 int phase;
-Menu titleScreen, winningScreen, losingScreen, scoreMenu, roundMenu, cheeseMenu, damageMenu, guideMenu;
+Menu titleScreen, winningScreen, losingScreen, scoreMenu, roundMenu, pointsMenu, healthMenu, guideMenu;
 Grid grid;
 Player player;
 Button empty, wall, cheese, start, reset, end, ready;
@@ -36,9 +36,9 @@ void setup() {
   ready = new Button(width - 400, ButtonSize.HEIGHT * 6, ButtonType.READY);
   scoreMenu = new Menu(width - 400, 0, 100, 50);
   roundMenu = new Menu(width - 300, 0, 150, 50);
-  cheeseMenu = new Menu(width - 300, 200, 150, 50);
-  damageMenu = new Menu(width - 300, 150, 150, 50);
-  guideMenu = new Menu(width - 400, 350, 400, 220);
+  pointsMenu = new Menu(width - 300, 200, 150, 50);
+  healthMenu = new Menu(width - 300, 150, 150, 50);
+  guideMenu = new Menu(width - 400, 350, 400, 250);
 
   
   grid = new Grid();
@@ -53,23 +53,34 @@ void draw() {
   if (phase == PhaseType.START) {  // Display Title Screen at the start
     titleScreen.titleScreen();
     start.draw();
-  }      
-  else if (phase == PhaseType.SETUP) {  // Display the Maze while the game is on
+  } 
+  
+  if (phase == PhaseType.PLAY) {
+    player.draw();
+  }
+  
+  if (phase == PhaseType.SETUP || phase == PhaseType.PLAY) {  // Display the Maze while the game is on
     opening.stop();
     if (!setup.isPlaying()) {
       setup.play();
     }
 
-    fill(Colour.WHITE);
+    fill(Colour.BLACK);
     rect(0, 0, width + 400, height); // Square to Hide start Menu
     
     grid.draw();
+    player.render(); //shows the player's initial position (but does not move)
     
+    
+    if (player.health <= 0){
+      grid.reset();
+      player.reset();
+    }
     
     scoreMenu.scoreMenu();
     roundMenu.roundMenu();
-    cheeseMenu.cheeseMenu();
-    damageMenu.damageMenu();
+    pointsMenu.cheeseMenu();
+    healthMenu.healthMenu();
     guideMenu.guideMenu();
     end.draw();
     empty.draw();
@@ -78,10 +89,6 @@ void draw() {
     reset.draw();
     ready.draw();
   }    
-  
-  else if (phase == PhaseType.PLAY) {
-    player.draw();
-  }
   
   else if (phase == PhaseType.END) {  // Display the Ending Screen, either Victory or Defeat
     setup.stop();
@@ -100,9 +107,7 @@ void draw() {
 }
 
 void mouseDragged() {
-   if (grid.isMouseOnGrid()){
-     grid.changeCell(mouseX, mouseY, grid.selected); 
-   }
+   grid.placeBlock();
 }
   
 void mousePressed() {
@@ -136,12 +141,11 @@ void mousePressed() {
   else if (ready.isMouseOverButton()){
     phase = PhaseType.PLAY;
   }
-  if (grid.isMouseOnGrid()){
-     grid.changeCell(mouseX, mouseY, grid.selected); 
-  }
+  grid.placeBlock();
 }
 
 void keyPressed() {
+  boolean toggle = false;
   if (key == CODED) {
     if (keyCode == RIGHT) {
       player.direction = Direction.RIGHT;
@@ -156,6 +160,16 @@ void keyPressed() {
       player.direction = Direction.UP;
     }
   }
+  //FIXME: Toggles speed boost on/off
+  if (key == 's' || key == 'S'){
+      toggle = !toggle;
+      if(toggle){
+        player.speed = 3;
+      }
+      else {
+        player.speed = 1;
+      }
+  } 
 }
 
 public static class PhaseType {

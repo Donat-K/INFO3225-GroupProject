@@ -8,8 +8,6 @@ class Menu {
   int mouseScore = 0;
   int mazeScore = 0;
   int roundNum = 1;
-  int cheeseNum = 0;
-  int damageNum = 0;  
   
   PImage lose, start, victory;
   
@@ -108,12 +106,12 @@ class Menu {
     textSize(24);
     fill(255, 255, 255);
     translate(xPos + xLength/2, yPos + yLength/2);
-    text("Cheese: " + cheeseNum, 0, 10);
+    text("Cheese: " + player.points, 0, 10);
     
     popMatrix();
   }
   
-  void damageMenu() {
+  void healthMenu() {
     pushMatrix();
     
     fill(Colour.BLUE);
@@ -122,7 +120,7 @@ class Menu {
     textSize(24);
     fill(255, 255, 255);
     translate(xPos + xLength/2, yPos + yLength/2);
-    text("Hits: " + damageNum, 0, 10);
+    text("Health: " + player.health, 0, 10);
     
     popMatrix();
   }  
@@ -130,7 +128,7 @@ class Menu {
   void guideMenu() {
     pushMatrix();
     
-    fill(200, 200, 200);
+    fill(Colour.GREY);
     rect(xPos, yPos, xLength, yLength);
     textAlign(CENTER);
     textSize(20);
@@ -145,6 +143,7 @@ class Menu {
     text("CHEESE: Clicking creates cheese blocks.", 5, 140);
     text("RESET: Completely clears the grid.", 5, 170);
     text("READY: Ends the building phase.", 5, 200);
+    text("Press 'S' to toggle speed boost on/off.", 5, 230);
     
     popMatrix();
   }   
