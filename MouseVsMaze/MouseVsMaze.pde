@@ -145,7 +145,6 @@ void mousePressed() {
 }
 
 void keyPressed() {
-  boolean toggle = false;
   if (key == CODED) {
     if (keyCode == RIGHT) {
       player.direction = Direction.RIGHT;
@@ -160,15 +159,13 @@ void keyPressed() {
       player.direction = Direction.UP;
     }
   }
-  //FIXME: Toggles speed boost on/off
+  
   if (key == 's' || key == 'S'){
-      toggle = !toggle;
-      if(toggle){
-        player.speed = 3;
-      }
-      else {
-        player.speed = 1;
-      }
+    if (player.speed == 1) {
+      player.speed = 3;
+    } else if (player.speed == 3) {
+      player.speed = 1;
+    }
   } 
 }
 

@@ -42,8 +42,8 @@ class Player {
     if (direction == Direction.UP) {
       nextY = yPos -= speed;
     }
-    //FIXME: Prevents player from exiting grid
-    if (nextX <= 1 || nextX >= width - 1 || nextY <= 1 || nextY >= height - 1){
+    
+    if (nextX <= 1 || nextX >= (GridSize.GRID_WIDTH*28) - 1 || nextY <= 1 || nextY >= height - 1){
       direction = Direction.STOP;
       return;
     }
