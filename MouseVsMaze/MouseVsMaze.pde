@@ -124,7 +124,9 @@ void mousePressed() {
     phase = PhaseType.END;   
   }
   else if (reset.isMouseOverButton()) {
-    grid.reset();   
+    grid.reset();
+    player.reset();
+    phase = PhaseType.SETUP;
   }
   else if (empty.isMouseOverButton()) {
     empty.isSelected = true;

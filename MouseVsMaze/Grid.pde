@@ -101,12 +101,13 @@ class Grid {
    
    void placeBlock(){
      if (grid.isMouseOnGrid()){
-        //FIXME: Prevents placing of block on top of player
-        if ( ((mouseX > (player.xPos + GridSize.CELL_SIZE * 1.5)) || (mouseX < (player.xPos - GridSize.CELL_SIZE * 1.5))) 
-        && ((mouseY > (player.yPos + GridSize.CELL_SIZE * 1.5)) || (mouseY < (player.yPos - GridSize.CELL_SIZE * 1.5))) ){
+        //Prevents placing of block on top of player
+        if ((mouseX >= (player.xPos + GridSize.CELL_SIZE / 2)) || (mouseX <= (player.xPos - GridSize.CELL_SIZE / 2))){
+          if((mouseY >= (player.yPos + GridSize.CELL_SIZE / 2)) || (mouseY <= (player.yPos - GridSize.CELL_SIZE / 2))){
             grid.changeCell(mouseX, mouseY, grid.selected); 
-          } 
-       }
+          }
+       } 
+     }
    }
 }
 
