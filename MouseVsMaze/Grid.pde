@@ -62,6 +62,44 @@ class Grid {
       }
   }
   
+  void randomFill() {
+    for (int i = 0; i < (GridSize.GRID_WIDTH); i++) {
+      for (int j = 0; j < (GridSize.GRID_HEIGHT); j++) {
+        int chance = Random.generateInt(1, 16);
+        if ((i == 0) || (j == 0) || (i == GridSize.GRID_WIDTH - 1) || (j == GridSize.GRID_WIDTH - 1)) {//creates wall around edges of grid
+          cells[i][j] = CellType.WALL;
+          continue;
+        }
+         //increases chances of wall being generated adjacent to existing wall.
+          if (cells[i - 1][j] == CellType.WALL || cells[i + 1][j] == CellType.WALL) {
+            chance -= 1;
+            if (cells[i][j - 1] == CellType.WALL && cells[i][j + 1] == CellType.WALL) {
+             chance += 1; 
+            }
+          }
+          if (cells[i][j - 1] == CellType.WALL || cells[i][j + 1] == CellType.WALL) {
+            chance -= 1;
+            if (cells[i - 1][j] == CellType.WALL && cells[i + 1][j] == CellType.WALL) {
+             chance += 1; 
+            }
+          }
+          if (chance >= 7 && chance < 15){
+          cells[i][j] = CellType.EMPTY;
+          }
+          if (chance >= 15 && chance <= 16){
+          cells[i][j] = CellType.CHEESE;
+          }
+          //decreases chances of blocked off areas
+          if (checkWallVicinity(i, j) >= 3) {
+            chance += 6;
+          }
+          if (chance >= 0 && chance < 7){
+            cells[i][j] = CellType.WALL;
+          }
+        }
+      }
+    }
+  
   void countCheese() {
     for (int i = 0; i < (GridSize.GRID_WIDTH); i++) { 
       for (int j = 0; j < (GridSize.GRID_HEIGHT); j++) { 

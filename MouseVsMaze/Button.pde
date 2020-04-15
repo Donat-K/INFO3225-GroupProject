@@ -54,6 +54,11 @@ public class Button {
       highlight = Colour.DARK_GREEN;
       label = "READY";
     }
+    else if (type == ButtonType.RANDOM){
+      colour = Colour.PINK;
+      highlight = Colour.DARK_PINK;
+      label = "RANDOM";
+    }
   }
   
   Button(int xPos, int yPos, int xWidth, int yHeight,  int type) {
@@ -107,10 +112,11 @@ public static class ButtonType {
    public static final int RESET = 4;
    public static final int END = 5;
    public static final int READY = 6;
+   public static final int RANDOM = 7;
 }
 
 public static class ButtonSize {
-   public static final int WIDTH = 100;
+   public static final int WIDTH = 150;
    public static final int HEIGHT = 50;
    
 }

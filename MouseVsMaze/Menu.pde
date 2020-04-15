@@ -93,14 +93,14 @@ class Menu {
     popMatrix();
   }
   
-  void cheeseMenu() {
+  void pointsMenu() {
     pushMatrix();
     
     fill(Colour.ORANGE);
     rect(xPos, yPos, xLength, yLength);
     textAlign(CENTER);
     textSize(24);
-    fill(255, 255, 255);
+    fill(Colour.WHITE);
     translate(xPos + xLength/2, yPos + yLength/2);
     text("Cheese: " + player.points + "/" + grid.cheeseNum, 0, 10);
     
@@ -114,7 +114,7 @@ class Menu {
     rect(xPos, yPos, xLength, yLength);
     textAlign(CENTER);
     textSize(24);
-    fill(255, 255, 255);
+    fill(Colour.WHITE);
     translate(xPos + xLength/2, yPos + yLength/2);
     text("Health: " + player.health, 0, 10);
     
@@ -133,13 +133,15 @@ class Menu {
     text("HELP MENU", 0, 22);
     translate(-xLength/2, 0);
     textAlign(LEFT);
-    text("END: Clicking ends the game.", 5, 50);
-    text("EMPTY: Clicking empties the square.", 5, 80);
-    text("WALL: Clicking creates a wall.", 5, 110);
-    text("CHEESE: Clicking creates cheese blocks.", 5, 140);
-    text("RESET: Completely clears the grid.", 5, 170);
-    text("READY: Ends the building phase.", 5, 200);
-    text("Press 'S' to toggle speed boost on/off.", 5, 230);
+    text("OBJECTIVE: Player 1 must create a maze which\ncontains cheese. Player 2 must navigate the\nmaze and collect the cheese without dying.", 5, 50);
+    text("END: Clicking ends the game.", 5, 140);
+    text("EMPTY: Clicking empties the square.", 5, 170);
+    text("WALL: Clicking creates a wall.", 5, 200);
+    text("CHEESE: Clicking creates cheese blocks.", 5, 230);
+    text("RESET: Completely clears the grid.", 5, 260);
+    text("READY: Ends the building phase.", 5, 290);
+    text("RANDOM: Procedurally generates a map.", 5, 320);
+    text("Press 'S' to toggle speed boost on/off.", 5, 350);
     
     popMatrix();
   }   

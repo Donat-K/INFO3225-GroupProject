@@ -4,13 +4,13 @@ int phase;
 Menu titleScreen, winningScreen, losingScreen, scoreMenu, roundMenu, pointsMenu, healthMenu, guideMenu;
 Grid grid;
 Player player;
-Button empty, wall, cheese, start, reset, end, ready;
+Button empty, wall, cheese, start, reset, end, ready, random;
 SoundFile opening, setup, playing, loss, victory;
 
 void settings(){
   width = GridSize.CELL_SIZE * GridSize.GRID_WIDTH;
   height = GridSize.CELL_SIZE * GridSize.GRID_HEIGHT;
-  size(width + 400, height);
+  size(width + 450, height);
  }
 
 void setup() {
@@ -27,18 +27,19 @@ void setup() {
   losingScreen = new Menu(0, 0, width, height);
   
   start = new Button(600, 750, 200, 100, ButtonType.START);
-  end = new Button(width - 400, ButtonSize.HEIGHT, ButtonType.END);  
-  empty = new Button(width - 400, ButtonSize.HEIGHT * 2, ButtonType.EMPTY);
-  wall = new Button(width - 400, ButtonSize.HEIGHT * 3, ButtonType.WALL);
-  cheese = new Button(width - 400, ButtonSize.HEIGHT * 4, ButtonType.CHEESE);
-  reset = new Button(width - 400, ButtonSize.HEIGHT * 5, ButtonType.RESET);
-  ready = new Button(width - 400, ButtonSize.HEIGHT * 6, ButtonType.READY);
+  end = new Button(width - 300, ButtonSize.HEIGHT * 4, ButtonType.END);  
+  empty = new Button(width - 150, ButtonSize.HEIGHT * 8, ButtonType.EMPTY);
+  wall = new Button(width - 450, ButtonSize.HEIGHT * 8, ButtonType.WALL);
+  cheese = new Button(width - 300, ButtonSize.HEIGHT * 8, ButtonType.CHEESE);
+  reset = new Button(width - 300, ButtonSize.HEIGHT * 6, ButtonType.RESET);
+  ready = new Button(width - 450, ButtonSize.HEIGHT * 4, ButtonType.READY);
+  random = new Button(width - 450, ButtonSize.HEIGHT * 6, ButtonType.RANDOM);
 
-  scoreMenu = new Menu(width - 400, 0, 100, 50);
-  roundMenu = new Menu(width - 300, 0, 150, 50);
-  pointsMenu = new Menu(width - 300, 200, 150, 50);
-  healthMenu = new Menu(width - 300, 150, 150, 50);
-  guideMenu = new Menu(width - 400, 350, 400, 250);
+  scoreMenu = new Menu(width - 450, 0, 100, 50);
+  roundMenu = new Menu(width - 350, 0, 150, 50);
+  pointsMenu = new Menu(width - 300, ButtonSize.HEIGHT * 2, 150, 50);
+  healthMenu = new Menu(width - 450, ButtonSize.HEIGHT * 2, 150, 50);
+  guideMenu = new Menu(width - 450, ButtonSize.HEIGHT * 10, 450, 360);
  
   grid = new Grid();
   player = new Player();
@@ -82,7 +83,7 @@ void draw() {
     
     scoreMenu.scoreMenu();
     roundMenu.roundMenu();
-    pointsMenu.cheeseMenu();
+    pointsMenu.pointsMenu();
     healthMenu.healthMenu();
     guideMenu.guideMenu();
     
@@ -92,6 +93,7 @@ void draw() {
     cheese.draw();
     reset.draw();
     ready.draw();
+    random.draw();
   }
   
   else if (phase == PhaseType.END) {  // Display the Ending Screen, either Victory or Defeat
@@ -111,9 +113,7 @@ void draw() {
 }
 
 void mouseDragged() {
-  if (phase == PhaseType.SETUP) {   
-    grid.placeBlock();
-  }
+  grid.placeBlock();
 }
   
 void mousePressed() {
@@ -150,7 +150,10 @@ void mousePressed() {
     phase = PhaseType.PLAY;
     grid.countCheese();
   }
-  if (phase == PhaseType.SETUP) {   
+  else if (random.isMouseOverButton()){
+    grid.randomFill();
+  }
+  else {   
     grid.placeBlock();
   }
 }

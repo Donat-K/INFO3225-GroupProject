@@ -6,7 +6,8 @@ public static class Colour {
   public static final color CYAN = #00C0FF;
   public static final color YELLOW = #FFFF00;
   public static final color BLUE = #0000FF;
-  public static final color PINK = #FF67C6;
+  public static final color PINK = #FF33B3;
+  public static final color DARK_PINK = #BA2081;
   public static final color DARK_GREY = #404040;
   public static final color GREEN = #00FF00;
   public static final color DARK_GREEN = #00C800;
